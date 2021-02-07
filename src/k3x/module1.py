@@ -1,7 +1,7 @@
 # Example PyPI (Python Package Index) Package
 
-class Number(object):
 
+class Number(object):
     def __init__(self, n):
         self.value = n
 
