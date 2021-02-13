@@ -22,5 +22,8 @@ jobs:
           TWINE_USERNAME: __token__
           TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
         run: |
+          python tools/releasing/release.py
           python setup.py sdist bdist_wheel
+          git tag $(cat "src/k3x/version.txt")
+          git push origin $(cat "src/k3x/version.txt")
           twine upload --repository pypi dist/*
