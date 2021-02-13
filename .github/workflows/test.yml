@@ -3,12 +3,12 @@ name: Test
 on:
   push:
     branches:
-      - main
-      - master
+      - dev
+      - release/*
   pull_request:
     branches:
-      - main
-      - master
+      - dev
+      - release/*
 
 jobs:
   build:
@@ -23,8 +23,12 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python }}
+      - name: Generate version
+        run: |
+          python tools/releasing/release.py
       - name: Install Tox and any other packages
         run: pip install tox
       - name: Run Tox
         # Run tox using the version of Python in `PATH`
-        run: tox -e py
+        run: |
+          tox -e py
