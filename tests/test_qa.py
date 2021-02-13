@@ -19,16 +19,21 @@ def exec():
 
 
 def test_formatting(project_path, exec):
-    cmds = [
-        ["isort", "--check", "--profile=black", project_path],
-        ["black", "--check", project_path],
-    ]
-    for cmd in cmds:
-        try:
-            exec(cmd)
-        except Exception as ex:
-            print(f"{ex.stderr}")
-            assert False
+    cmd = [os.path.join(project_path, "tools", "format.sh"), "--check"]
+    try:
+        exec(cmd)
+    except Exception as ex:
+        print(f"""{ex.stderr if hasattr(ex, "stderr") else ex}""")
+        assert False
+
+
+def test_linting(project_path, exec):
+    cmd = [os.path.join(project_path, "tools", "lint.sh")]
+    try:
+        exec(cmd)
+    except Exception as ex:
+        print(f"""{ex.stderr if hasattr(ex, "stderr") else ex}""")
+        assert False
 
 
 if __name__ == "__main__":
