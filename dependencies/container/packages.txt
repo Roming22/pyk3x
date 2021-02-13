@@ -1,3 +1,4 @@
+enchant
 findutils
 git
 procps

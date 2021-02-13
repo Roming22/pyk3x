@@ -1,6 +1,7 @@
 black
 isort
 mypy
+pyenchant
 pylint
 pytest
 shellcheck-py
