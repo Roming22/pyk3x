@@ -1,8 +1,8 @@
 import os
 import unittest
+from subprocess import run
 
 from pytest import fixture
-from subprocess import run
 
 
 @fixture
@@ -19,12 +19,16 @@ def exec():
 
 
 def test_formatting(project_path, exec):
-    cmd = ["black", "--check", project_path]
-    try:
-        exec(cmd)
-    except Exception as ex:
-        print(f"{ex.stderr}")
-        assert False
+    cmds = [
+        ["isort", "--check", "--profile=black", project_path],
+        ["black", "--check", project_path],
+    ]
+    for cmd in cmds:
+        try:
+            exec(cmd)
+        except Exception as ex:
+            print(f"{ex.stderr}")
+            assert False
 
 
 if __name__ == "__main__":
