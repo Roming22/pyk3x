@@ -2,8 +2,6 @@ name: ReleaseDev
 
 on:
   push:
-    branches:
-      - dev
 
 jobs:
   deploy:
@@ -23,5 +21,8 @@ jobs:
           TWINE_USERNAME: __token__
           TWINE_PASSWORD: ${{ secrets.TEST_PYPI_API_TOKEN }}
         run: |
+          python tools/releasing/release.py
           python setup.py sdist bdist_wheel
           twine upload --repository testpypi dist/*
+          git tag $(cat "src/k3x/version.txt")
+          git push origin $(cat "src/k3x/version.txt")
