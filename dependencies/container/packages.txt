@@ -1,3 +1,4 @@
+diffutils
 enchant
 findutils
 git

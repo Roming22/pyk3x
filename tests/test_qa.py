@@ -27,5 +27,17 @@ def test_linting(project_path, run):
         assert False
 
 
+def test_linting_dictionary(project_path, run):
+    cmd = [os.path.join(project_path, "tools", "dictionary", "update.sh"), "--check"]
+    try:
+        run(cmd)
+    except CalledProcessError as ex:
+        print(f"""{ex.stderr}""")
+        assert False
+    except Exception as ex:
+        print(f"""{ex}""")
+        assert False
+
+
 if __name__ == "__main__":
     unittest.main()
