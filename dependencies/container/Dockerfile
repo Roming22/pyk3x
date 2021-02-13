@@ -14,7 +14,7 @@ RUN groupadd -g 9999 dev \
 # Add module and packages
 # TODO: Freeze versions and automate versions update
 #
-COPY .dependencies /opt/dependencies
+COPY dependencies /opt/dependencies
 RUN apt-get update \
     && for PACKAGE in `cat /opt/dependencies/container/packages.txt`; do apt-get install -y "${PACKAGE}"; done \
     && apt-get clean
