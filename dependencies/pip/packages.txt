@@ -1,0 +1,9 @@
+black
+isort
+gitpython
+mypy
+pyenchant
+pylint
+pytest
+pytest-xdist
+shellcheck-py
