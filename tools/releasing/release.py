@@ -71,7 +71,7 @@ def generate_version() -> None:
         x = now.strftime("%y%m")
         y = now.strftime("%d%H")
         z = now.strftime("%M%S")
-    version = f"{x}.{y}.{z}"
+    version = f"{x}.{y}.dev{z}"
 
     commit_id = run(
         ["git", "rev-parse", "HEAD"],
