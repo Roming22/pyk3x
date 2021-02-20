@@ -26,9 +26,9 @@ jobs:
       - name: Generate version
         run: |
           python tools/releasing/release.py
-      - name: Install Tox and any other packages
-        run: pip install tox
-      - name: Run Tox
-        # Run tox using the version of Python in `PATH`
+      - name: Install packages
         run: |
-          tox -e py
+          pip install -r dependencies/pip/requirements
+      - name: Run tests
+        run: |
+          tools/test.sh
