@@ -90,6 +90,9 @@ def generate_version() -> None:
                 f'__version__ = "{version}"',
                 f'__commit__ = "{commit_id[:6]}"',
                 "",
+                """if __name__ == "__main__":""",
+                """    print(f"{__version__}")""",
+                "",
             ]
         )
     )

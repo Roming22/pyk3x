@@ -25,6 +25,6 @@ jobs:
           TWINE_PASSWORD: ${{ secrets.TEST_PYPI_API_TOKEN }}
         run: |
           python setup.py sdist bdist_wheel
-          git tag $(cat "src/k3x/version.txt")
-          git push origin $(cat "src/k3x/version.txt")
+          git tag $(python "src/k3x/version.py")
+          git push origin $(python "src/k3x/version.py")
           twine upload --repository testpypi dist/*
