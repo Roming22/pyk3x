@@ -10,7 +10,7 @@ PACKAGES="${SCRIPT_DIR}/packages.txt"
 pip freeze | xargs --no-run-if-empty pip uninstall -y
 pip install -r "${PACKAGES}"
 
-pytest "${SCRIPT_DIR}/../../tests"
+"${SCRIPT_DIR}/../../tools/test.sh"
 
 pip freeze > "${FROZEN}"
 
