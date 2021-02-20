@@ -34,7 +34,7 @@ run_pylint(){
 
 run_shellcheck(){
     echo "=> shellcheck"
-    find "${PROJECT_DIR}" -name \*.sh -exec shellcheck {} \;
+    find "${PROJECT_DIR}" -name \*.sh -print0 | xargs --no-run-if-empty --null shellcheck
     echo
 }
 

@@ -31,18 +31,18 @@ parse_args(){
         esac
         shift
     done
-    [[ -n "${SOURCES[@]}" || -n "${QA}" ]] || { SOURCES="${PROJECT_DIR}/tests/src"; QA="${PROJECT_DIR}/tests/qa"; }
+    [[ -n "${SOURCES[*]}" || -n "${QA[*]}" ]] || { SOURCES=( "${PROJECT_DIR}/tests/src" ); QA=( "${PROJECT_DIR}/tests/qa" ); }
 }
 
 run_pytest(){
     echo "=> pyltest ${PROJECT_DIR}/tests"
-    find ${PROJECT_DIR} -name .coverage\* | xargs --no-run-if-empty rm -f
-    [[ -z "${SOURCES[@]}" ]] || { \
-        pytest --cov="${PROJECT_DIR}/src" -n 4 "${SOURCES}"; \
+    find "${PROJECT_DIR}" -name .coverage\* -print0 | xargs --no-run-if-empty --null rm -f
+    [[ -z "${SOURCES[*]}" ]] || { \
+        pytest --cov="${PROJECT_DIR}/src" -n 4 "${SOURCES[@]}"; \
         coverage report > "${PROJECT_DIR}/tools/qa/coverage/report.txt"; \
         coverage html --directory tools/qa/coverage/html
     }
-    [[ -z "${QA[@]}" ]] || pytest -n 4 "${QA}"
+    [[ -z "${QA[*]}" ]] || pytest -n 4 "${QA[@]}"
     echo
 }
 

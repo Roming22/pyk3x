@@ -24,11 +24,9 @@
     },
     // Add the IDs of extensions you want installed when the container is created.
     "extensions": [
-        "aaron-bond.better-comments",
         "GitHub.vscode-pull-request-github",
         "ms-python.python",
-        "mutantdino.resourcemonitor",
-        "njpwerner.autodocstring",
-        "ritwickdey.liveserver"
+        "ritwickdey.liveserver",
+        "timonwong.shellcheck",
     ],
 }
