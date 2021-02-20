@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "Upgrade dictionary"
+echo "Update dictionary"
 set -e
 set -o pipefail
 SCRIPT_DIR="$(dirname "$(realpath "$0")")"

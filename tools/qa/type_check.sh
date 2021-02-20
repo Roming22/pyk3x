@@ -3,7 +3,7 @@ echo "Type check"; echo
 set -e
 set -o pipefail
 SCRIPT_DIR="$(dirname "$(realpath "$0")")"
-PROJECT_DIR="$(realpath "${SCRIPT_DIR}/..")"
+PROJECT_DIR="$(realpath "${SCRIPT_DIR}/../..")"
 
 run_mypy(){
     echo "=> mypy ${PROJECT_DIR}/src"

@@ -12,16 +12,23 @@
     // Set *default* container specific settings.json values on container create.
     "settings": {
         "terminal.integrated.shell.linux": "/bin/bash",
+        "python.formatting.blackPath": "black",
+        "python.formatting.provider": "black",
         "python.linting.enabled": true,
+        "python.linting.mypyEnabled": true,
+        "python.linting.mypyPath": "mypy",
         "python.linting.pylintEnabled": true,
+        "python.linting.pylintPath": "pylint",
+        "python.testing.pytestEnabled": true,
+        "python.testing.pytestPath": "pytest",
     },
     // Add the IDs of extensions you want installed when the container is created.
     "extensions": [
         "aaron-bond.better-comments",
         "GitHub.vscode-pull-request-github",
-        "LittleFoxTeam.vscode-python-test-adapter",
         "ms-python.python",
         "mutantdino.resourcemonitor",
-        "njpwerner.autodocstring"
+        "njpwerner.autodocstring",
+        "ritwickdey.liveserver"
     ],
 }
