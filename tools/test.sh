@@ -33,6 +33,7 @@ parse_args(){
         shift
     done
     [[ -n "${SOURCES[*]}" || -n "${QA[*]}" ]] || { SOURCES=( "${PROJECT_DIR}/tests/src" ); QA=( "${PROJECT_DIR}/tests/qa" ); }
+    export PYTHONPATH="${PROJECT_DIR}/src:${PYTHONPATH}"
 }
 
 run_pytest(){

@@ -1,7 +1,8 @@
 Name                  Stmts   Miss  Cover
 -----------------------------------------
 src/__init__.py           0      0   100%
-src/k3x/__init__.py      12      2    83%
+src/k3x/__init__.py       3      0   100%
 src/k3x/module1.py       14      3    79%
+src/k3x/version.py        2      0   100%
 -----------------------------------------
-TOTAL                    26      5    81%
+TOTAL                    19      3    84%

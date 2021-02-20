@@ -73,18 +73,26 @@ def generate_version() -> None:
         z = now.strftime("%M%S")
     version = f"{x}.{y}.{z}"
 
-    repo_path = Path(__file__).parent.parent.parent
-    version_path = repo_path.joinpath("src", "k3x", "version.txt")
-    version_path.write_text(f"{version}")
-
     commit_id = run(
         ["git", "rev-parse", "HEAD"],
         capture_output=True,
         check=True,
         text=True,
     ).stdout.split("\n")[0]
-    commit_path = repo_path.joinpath("src", "k3x", "commit.txt")
-    commit_path.write_text(f"{commit_id[:6]}")
+
+    repo_path = Path(__file__).parent.parent.parent
+    version_path = repo_path.joinpath("src", "k3x", "version.py")
+    version_path.write_text(
+        "\n".join(
+            [
+                '"""Changes on this file are not tracked.',
+                'Use the `--no-assume-unchanged` flag if you need to commit a change. """',
+                f'__version__ = "{version}"',
+                f'__commit__ = "{commit_id[:6]}"',
+                "",
+            ]
+        )
+    )
 
 
 if __name__ == "__main__":

@@ -142,10 +142,6 @@ cython_debug/
 # Project
 ################################################################################
 
-# Releasing
-src/k3x/commit.txt
-src/k3x/version.txt
-
 # Tools
 tools/qa/coverage/html/*
 tools/qa/coverage/report.txt
