@@ -25,6 +25,7 @@ jobs:
           python-version: ${{ matrix.python }}
       - name: Install packages
         run: |
+          date
           pip install -r dependencies/pip/requirements.txt
           python setup.py check -m -s
       - name: Run tests
@@ -41,26 +42,25 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: "3.x"
-      - name: Generate version
-        run: |
-          python tools/releasing/release.py
       - name: Install packages
         run: |
+          date
           pip install -r dependencies/pip/requirements.txt
           pip install setuptools wheel twine
-      - name: MakeRelease
+      - name: Make release
         run: |
           date
-          echo "Release"
+          python tools/releasing/release.py
+          echo "Release: $(python "src/k3x/version.py")"
           python setup.py check -m -s
           python setup.py sdist bdist_wheel
           git tag $(python "src/k3x/version.py")
-          date
-      - name: UploadRelease
+      - name: Upload release
         env:
           TWINE_USERNAME: __token__
           TWINE_PASSWORD: ${{ secrets.TEST_PYPI_API_TOKEN }}
         run: |
           date
-          env
+          echo "Uploading: $(python "src/k3x/version.py")"
+          env | sort
           date
