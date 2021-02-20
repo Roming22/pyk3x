@@ -8,7 +8,7 @@ PROJECT_DIR="$(realpath "${SCRIPT_DIR}/../../..")"
 set -x
 generate(){
     "${SCRIPT_DIR}/../../test.sh" "${PROJECT_DIR}/tests/src" || true
-    coverage report > "${SCRIPT_DIR}/report.ref"
+    cp "${SCRIPT_DIR}/report.txt" "${SCRIPT_DIR}/report.ref"
 }
 
 generate

@@ -40,9 +40,11 @@ run_pytest(){
     echo "=> pytest ${PROJECT_DIR}/tests"
     find "${PROJECT_DIR}" -name .coverage\* -print0 | xargs --no-run-if-empty --null rm -f
     [[ -z "${SOURCES[*]}" ]] || { \
+        COVERAGE_DIR="${PROJECT_DIR}/tools/qa/coverage"
         pytest --cov="${PROJECT_DIR}/src" --numprocesses=auto "${SOURCES[@]}"; \
-        coverage report > "${PROJECT_DIR}/tools/qa/coverage/report.txt"; \
-        coverage html --directory "${PROJECT_DIR}/tools/qa/coverage/html"
+        python --version | cut -d. -f1,2 > "${COVERAGE_DIR}/report.txt"
+        coverage report >> "${COVERAGE_DIR}/report.txt"; \
+        coverage html --directory "${COVERAGE_DIR}/html"
     }
     [[ -z "${QA[*]}" ]] || pytest --numprocesses=auto "${QA[@]}"
     echo
