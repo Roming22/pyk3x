@@ -143,6 +143,7 @@ cython_debug/
 ################################################################################
 
 # Releasing
+src/k3x/commit.txt
 src/k3x/version.txt
 
 # Tools

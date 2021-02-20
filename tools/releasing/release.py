@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """Package registration"""
 
 from datetime import datetime
@@ -72,19 +73,18 @@ def generate_version() -> None:
         z = now.strftime("%M%S")
     version = f"{x}.{y}.{z}"
 
-    repo_path = Path(__file__).parent.parent.parent.parent
+    repo_path = Path(__file__).parent.parent.parent
     version_path = repo_path.joinpath("src", "k3x", "version.txt")
-    with open(version_path, "w") as file:
-        file.write(f"{version}")
+    version_path.write_text(f"{version}")
+
+    commit_id = run(
+        ["git", "rev-parse", "HEAD"],
+        capture_output=True,
+        check=True,
+        text=True,
+    ).stdout.split("\n")[0]
     commit_path = repo_path.joinpath("src", "k3x", "commit.txt")
-    with open(commit_path, "w") as file:
-        commit_id = run(
-            ["git", "rev-parse", "HEAD"],
-            capture_output=True,
-            check=True,
-            text=True,
-        ).stdout.split("\n")
-        file.write(f"{commit_id[:6]}")
+    commit_path.write_text(f"{commit_id[:6]}")
 
 
 if __name__ == "__main__":
