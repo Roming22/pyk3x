@@ -1,4 +1,3 @@
-import os
 from subprocess import CalledProcessError
 from subprocess import run as sp_run
 
@@ -8,6 +7,7 @@ from pytest import fail, fixture
 @fixture
 def run():
     def func(cmd):
+        cmd = [f"{x}" for x in cmd]
         try:
             sp_run(cmd, capture_output=True, check=True, text=True)
         except CalledProcessError as ex:
