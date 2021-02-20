@@ -4,6 +4,7 @@ set -e
 set -o pipefail
 SCRIPT_DIR="$(dirname "$(realpath "$0")")"
 PROJECT_DIR="$(realpath "${SCRIPT_DIR}/..")"
+cd "${PROJECT_DIR}"
 
 parse_args(){
     SOURCES=( )
@@ -35,14 +36,14 @@ parse_args(){
 }
 
 run_pytest(){
-    echo "=> pyltest ${PROJECT_DIR}/tests"
+    echo "=> pytest ${PROJECT_DIR}/tests"
     find "${PROJECT_DIR}" -name .coverage\* -print0 | xargs --no-run-if-empty --null rm -f
     [[ -z "${SOURCES[*]}" ]] || { \
-        pytest --cov="${PROJECT_DIR}/src" -n 4 "${SOURCES[@]}"; \
+        pytest --cov="${PROJECT_DIR}/src" --numprocesses=auto "${SOURCES[@]}"; \
         coverage report > "${PROJECT_DIR}/tools/qa/coverage/report.txt"; \
-        coverage html --directory tools/qa/coverage/html
+        coverage html --directory "${PROJECT_DIR}/tools/qa/coverage/html"
     }
-    [[ -z "${QA[*]}" ]] || pytest -n 4 "${QA[@]}"
+    [[ -z "${QA[*]}" ]] || pytest --numprocesses=auto "${QA[@]}"
     echo
 }
 

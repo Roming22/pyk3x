@@ -4,6 +4,7 @@ set -e
 set -o pipefail
 SCRIPT_DIR="$(dirname "$(realpath "$0")")"
 PROJECT_DIR="$(realpath "${SCRIPT_DIR}/../..")"
+cd "${PROJECT_DIR}"
 
 parse_args(){
     LINTERS=()

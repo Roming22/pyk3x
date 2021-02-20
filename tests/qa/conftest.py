@@ -6,11 +6,6 @@ from pytest import fail, fixture
 
 
 @fixture
-def project_path():
-    return os.path.abspath(os.getcwd())
-
-
-@fixture
 def run():
     def func(cmd):
         try:
