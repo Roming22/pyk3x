@@ -4,9 +4,9 @@ import unittest
 
 def test_lint_python(project_path, run):
     cmds = [
-        [os.path.join(project_path, "tools", "qa", "lint.sh"), "--pylint"],
+        [project_path.joinpath("tools", "qa", "lint.sh"), "--pylint"],
         [
-            os.path.join(project_path, "tools", "qa", "dictionary", "update.sh"),
+            project_path.joinpath("tools", "qa", "dictionary", "update.sh"),
             "--check",
         ],
     ]
@@ -15,7 +15,7 @@ def test_lint_python(project_path, run):
 
 
 def test_lint_shell(project_path, run):
-    cmd = [os.path.join(project_path, "tools", "qa", "lint.sh"), "--shellcheck"]
+    cmd = [project_path.joinpath("tools", "qa", "lint.sh"), "--shellcheck"]
     run(cmd)
 
 

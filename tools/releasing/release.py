@@ -1,7 +1,7 @@
 """Package registration"""
 
-import os.path as path
 from datetime import datetime
+from pathlib import Path
 from subprocess import run
 
 
@@ -47,10 +47,8 @@ def generate_version() -> None:
             .stdout.strip()
             .split("\n")
         )
-        print(f"branches: {releases}")
         releases = [r.split("/")[-1] for r in releases]
         releases = [(int(r.split(".")[0]), int(r.split(".")[1])) for r in releases]
-        print(f"releases: {releases}")
 
         # Get latest release version
         x, y = sorted(releases)[-1]
@@ -74,11 +72,11 @@ def generate_version() -> None:
         z = now.strftime("%M%S")
     version = f"{x}.{y}.{z}"
 
-    repo_path = path.abspath(path.join(path.dirname(__file__), "..", ".."))
-    version_path = path.join(repo_path, "src", "k3x", "version.txt")
+    repo_path = Path(__file__).parent.parent.parent.parent
+    version_path = repo_path.joinpath("src", "k3x", "version.txt")
     with open(version_path, "w") as file:
         file.write(f"{version}")
-    commit_path = path.join(repo_path, "src", "k3x", "commit.txt")
+    commit_path = repo_path.joinpath("src", "k3x", "commit.txt")
     with open(commit_path, "w") as file:
         commit_id = run(
             ["git", "rev-parse", "HEAD"],

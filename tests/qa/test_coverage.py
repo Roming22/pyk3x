@@ -3,11 +3,11 @@ import unittest
 
 
 def test_run(project_path, run):
-    coverage_path = os.path.join(project_path, "tools", "qa", "coverage")
+    coverage_path = project_path.joinpath("tools", "qa", "coverage")
     cmd = [
         "diff",
-        os.path.join(coverage_path, "report.ref"),
-        os.path.join(coverage_path, "report.txt"),
+        coverage_path.joinpath("report.ref"),
+        coverage_path.joinpath("report.txt"),
     ]
     run(cmd)
 
