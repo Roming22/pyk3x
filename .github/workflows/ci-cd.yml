@@ -58,9 +58,17 @@ jobs:
       - name: Upload release
         env:
           TWINE_USERNAME: __token__
-          TWINE_PASSWORD: ${{ secrets.TEST_PYPI_API_TOKEN }}
+          TWINE_TEST_PASSWORD: ${{ secrets.TEST_PYPI_API_TOKEN }}
+          TWINE_PROD_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
         run: |
           date
           echo "Uploading: $(python "src/k3x/version.py")"
-          env | sort
+          echo git push origin $(python "src/k3x/version.py")
+          export TWINE_PASSWORD="${TWINE_TEST_PASSWORD}"
+          echo twine upload --repository testpypi dist/*
+          if [[ "${GITHUB_REF}" = refs/heads/release/* && "${GITHUB_EVENT_NAME}" == "push" ]]; then
+            echo "This is a release"
+            export TWINE_PASSWORD="${TWINE_PROD_PASSWORD}"
+            echo twine upload --repository pypi dist/*
+          fi
           date
