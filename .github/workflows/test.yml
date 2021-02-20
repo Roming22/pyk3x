@@ -39,6 +39,7 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     steps:
+      - name: ReleaseAfterTest
         run: |
           date
           echo "Release"
