@@ -26,7 +26,7 @@ parse_args(){
 run_pylint(){
     for DIR in src tests; do
         echo "=> pylint ${PROJECT_DIR}/${DIR}"
-        pylint --rcfile="${SCRIPT_DIR}/pylintrc.${DIR}.ini" "${PROJECT_DIR}/${DIR}"
+        pylint --jobs=0 --rcfile="${SCRIPT_DIR}/pylintrc.${DIR}.ini" "${PROJECT_DIR}/${DIR}"
     done
     echo
 
