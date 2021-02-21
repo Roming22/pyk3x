@@ -2,6 +2,9 @@ name: CI/CD
 
 on:
   push:
+    branches:
+      - dev
+      - release/*
   pull_request:
     branches:
       - dev
@@ -60,12 +63,13 @@ jobs:
         run: |
           date
           echo "Uploading: $(python "src/k3x/version.py")"
-          echo git push origin $(python "src/k3x/version.py")
+          if [[ "${GITHUB_REF}" = refs/heads/release/* || "${GITHUB_REF}" = "refs/heads/dev" ]]; then
+            git push origin $(python "src/k3x/version.py")
+          fi
           export TWINE_PASSWORD="${TWINE_TEST_PASSWORD}"
-          echo twine upload --repository testpypi dist/*
+          twine upload --repository testpypi dist/*
           if [[ "${GITHUB_REF}" = refs/heads/release/* && "${GITHUB_EVENT_NAME}" == "push" ]]; then
-            echo "This is a release"
             export TWINE_PASSWORD="${TWINE_PROD_PASSWORD}"
-            echo twine upload --repository pypi dist/*
+            twine upload --repository pypi dist/*
           fi
           date
