@@ -11,13 +11,15 @@ def generate_version() -> None:
 
     Version numbers are in the form `X.Y.Z` where:
       - X is the major version number
-      - Y is the minor version number, odd for development releases/snapshots, even for production releases
+      - Y is the minor version number, odd for development releases/snapshots,
+        even for production releases
       - Z is a revision number
 
     For work in progress (a.k.a feature) branches:
-      - X is the year and month the release was generated
-      - Y is the day and hour the release was generated
-      - Z is the minute and second the release was generated
+      - X is 0, to prevent accidental installation from the test pypi instance.
+      - Y is the year, month and day the release was generated.
+      - Z is the hour, minute and second the release was generated, prefixed by
+        dev to prevent accidental installation from the test pypi instance.
 
     c.f:
       - https://www.python.org/dev/peps/pep-0440/
@@ -68,10 +70,10 @@ def generate_version() -> None:
         )
     else:
         now = datetime.utcnow()
-        x = now.strftime("%y%m")
-        y = now.strftime("%d%H")
-        z = now.strftime("%M%S")
-    version = f"{x}.{y}.dev{z}"
+        x = "0"
+        y = now.strftime("%y%m%d")
+        z = "dev" + now.strftime("%H%M%S")
+    version = f"{x}.{y}.{z}"
 
     commit_id = run(
         ["git", "rev-parse", "HEAD"],
